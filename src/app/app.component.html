@@ -1,0 +1,42 @@
+<form [formGroup]="userTable">
+	<table>
+		<thead>
+			<tr>
+				<th *ngFor="let head of tableHead">{{head}}</th>
+			</tr>
+		</thead>
+		<tbody>
+
+      <ng-container *ngFor="let group of getFormControls.controls ; let i=index">
+        <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
+          <td>
+            <input formControlName="name">
+          </td>
+          <td>
+            <input formControlName="email">
+          </td>
+          <td>
+            <input formControlName="bloodGroup">
+          </td>
+          <td>
+            <input formControlName="mobileNumber">
+          </td>
+        </tr>
+      
+			<tr *ngIf="!group.get('isEditable').value">
+				<td>{{group.get('name').value}}</td>
+				<td>{{group.get('email').value}}</td>
+				<td>{{group.get('bloodGroup').value}}
+					<!-- <ng-select [items]="data.bloodGroup" bindLabel="name" bindValue="id" >
+           
+					</ng-select> -->
+				</td>
+				<td>{{group.get('mobileNumber').value}}</td>
+        <td>
+          <button (click)="editRow(group)">edit</button>
+        </td>
+			</tr>
+      </ng-container>
+		</tbody>
+	</table>
+</form>
